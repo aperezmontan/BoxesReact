@@ -9,19 +9,25 @@ import {
   TouchableHighlight,
   View
 } from 'react-native';
+import { connect } from 'react-redux';
 
 // get API functionality
-import Api from './api.js'
+import Api from './api.js';
+import { SheetForm } from './SheetForm';
 
-var Sheet = React.createClass({
+export const _Sheet = React.createClass({
   getInitialState() {
     return {
       sheets: [],
-      name: "Name",
-      first_qtr: "10%",
-      half: "25%",
-      third_qtr: "15%",
-      final_score: "50%",
+      newSheet: {
+        name: "Name",
+        firstQtr: "First Quarter Prize",
+        half: "Halftime Prize",
+        thirdQtr: "Third Quarter Prize",
+        final: "Final Prize",
+        // home_team: this.props.route.game.home_team, // TODO: Find a better way to get these values
+        // away_team: this.props.route.game.away_team
+      },
     };
   },
   componentDidMount() {
@@ -42,6 +48,16 @@ var Sheet = React.createClass({
       // borderWidth: 4,
     }
   },
+  // TODO: See if there's a better way to handle the onChange than creating a different function for each
+  handleChange(attribute, text){
+    console.log(attribute, text);
+    const sheet = this.state.newSheet;
+    sheet[attribute] = text;
+    this.setState(sheet);
+  },
+  handleCreateSheet(){
+    this.props.createSheet(this.state.newSheet)
+  },
   render() {
     var navigator = this.props.navigator;
     var route = this.props.route;
@@ -52,43 +68,14 @@ var Sheet = React.createClass({
     console.log(this.state.sheets);
     console.log(route.title);
     console.log(this.state.response);
+    console.log("Game", game);
     if (route.title === 'createSheet'){
       return (
-      <View style={[styles.container, this.border('black')]}>
-        <View style={[styles.container, this.border('black')]}>
-          <Text style={styles.game_title}>
-            Game: {game.away_team} at {game.home_team}
-          </Text>
-          <Text>
-            Please fill out fields below:
-          </Text>
-            <TextInput
-              style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-              onChangeText={(name) => this.setState({name})}
-              value={this.state.name}
-            />
-            <TextInput
-              style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-              onChangeText={(fir) => this.setState({first_qtr})}
-              value={this.state.first_qtr}
-            />
-            <TextInput
-              style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-              onChangeText={(half) => this.setState({half})}
-              value={this.state.half}
-            />
-            <TextInput
-              style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-              onChangeText={(th) => this.setState({third_qtr})}
-              value={this.state.third_qtr}
-            />
-            <TextInput
-              style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-              onChangeText={(final_score) => this.setState({final_score})}
-              value={this.state.final_score}
-            />
-        </View>
-      </View>
+        <SheetForm
+          handleChange={this.handleChange}
+          handleCreateSheet={this.handleCreateSheet}
+          newSheet={this.state.newSheet}
+        />
       );
     } else if (route.title === 'listSheets'){
       this.state.sheets.forEach(function(sheet){
@@ -112,6 +99,18 @@ var Sheet = React.createClass({
     }
   }
 })
+
+const mapActionsToProps = (dispatch) => ({
+  createSheet(sheet) {
+    dispatch({type: 'CREATE_SHEET', payload: sheet})
+  }
+})
+
+const mapStateToProps = (state) => ({
+  sheets: state.sheets
+})
+
+export const Sheet = connect(mapStateToProps, mapActionsToProps)(_Sheet)
 
 var BoxView = React.createClass({
   getInitialState(){
