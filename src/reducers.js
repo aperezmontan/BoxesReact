@@ -33,4 +33,18 @@ const boxes = (state = [], action) => {
   // }
 }
 
-export const reducer = combineReducers({ sheets, boxes })
+const users = (state = [], action) => {
+  return state;
+  // switch(action.type){
+  //   case DESELECT_BOX:
+  //     return [];
+  //   case SELECT_BOX:
+  //     return [];
+  //   case CONFIRM_BOX:
+  //     return [];
+  //   default:
+  //     return state;
+  // }
+}
+
+export const reducer = combineReducers({ sheets, boxes, users })

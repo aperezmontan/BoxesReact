@@ -8,10 +8,9 @@ import {
   View
 } from 'react-native';
 
-// get API functionality
-import Sheet from './sheet.js'
+import { Sheet } from './Sheet'
 
-var Game = React.createClass({
+export const Game = React.createClass({
   getInitialState(){
     return {
       games: [
@@ -110,5 +109,3 @@ const styles = StyleSheet.create({
     height: 30,
   },
 });
-
-module.exports = Game;
