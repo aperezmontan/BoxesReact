@@ -7,26 +7,24 @@ import {
   Text,
   TextInput,
   TouchableHighlight,
-  View
+  View,
+  ActivityIndicator
 } from 'react-native';
 
-export const SheetList = React.createClass({
+export const Loading = React.createClass({
   render(){
     console.log(this.props)
     // var away_team = this.props.sheet.away_team
     // var home_team = this.props.sheet.home_team
 
     return(
-      <TouchableHighlight onPress={() => this.goToSheet(this.props.sheet)}>
-        <View style={styles.container}>
-          <Text style={styles.game_title}>
-          Name: {this.props.sheets[0].name}
-          </Text>
-          <Text style={styles.games}>
-            Game: {this.props.sheets[0].away_team} vs {this.props.sheets[0].home_team}
-          </Text>
-        </View>
-      </TouchableHighlight>
+      <View>
+        <ActivityIndicator
+          animating={true}
+          style={[styles.centering, {height: 80}]}
+          size="large"
+        />
+      </View>
     )
   }
 })
@@ -74,5 +72,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap'
+  },
+  centering: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 8,
   },
 });

@@ -23,13 +23,15 @@ export class _Welcome extends Component {
       },
     };
   }
-  handleChange(attribute, text){
-    const loginInfo = this.state.loginInfo;
+  handleChange = (attribute, text) => {
+    const loginInfo = this.props.loginInfo;
     loginInfo[attribute] = text;
     this.setState(loginInfo);
   }
-  handleLogin(){
-    console.log("Login Button pressed");
+  handleLogin = (loginInfo) => {
+    this.props.login();
+    this.props.fetchUser(loginInfo);
+
   }
   handleNewUser(){
     console.log("New User Button pressed");
@@ -40,21 +42,18 @@ export class _Welcome extends Component {
         handleChange={this.handleChange}
         handleLogin={this.handleLogin}
         handleNewUser={this.handleNewUser}
-        login={this.props.login}
-        loginInfo={this.state.loginInfo}
+        {...this.props}
       />
     )
   }
 }
 
 const mapActionsToProps = (dispatch) => ({
-  login(login) {
-    dispatch({type: 'FETCH_USER', payload: login})
+  fetchUser(loginInfo) {
+    dispatch({type: 'FETCH_USER', payload: loginInfo})
   }
 })
 
-const mapStateToProps = (state) => ({
-  loginInfo: state.loginInfo
-})
+const mapStateToProps = (state) => ({ loginInfo: state.users.loginInfo })
 
 export const Welcome = connect(mapStateToProps, mapActionsToProps)(_Welcome)

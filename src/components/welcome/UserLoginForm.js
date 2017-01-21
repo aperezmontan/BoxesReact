@@ -27,7 +27,7 @@ export const UserLoginForm = (props) => (
         secureTextEntry={true}
         value={props.loginInfo.password}
       />
-      <TouchableHighlight onPress={() => props.login()}>
+      <TouchableHighlight onPress={() => props.handleLogin(props.loginInfo)}>
         <Text style={styles.login}>
           Login
         </Text>

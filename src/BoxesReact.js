@@ -14,7 +14,6 @@ export class BoxesReact extends Component {
       sheets: []
     };
   }
-
   login = () => {
     this.setState({ loggedIn: true });
   }
@@ -28,7 +27,7 @@ export class BoxesReact extends Component {
   }
 
   render(){
-    const { loggedIn } = this.state;
+    const loggedIn = this.state.loggedIn;
     return loggedIn ? this.renderApp(SheetListView) : this.renderApp(Welcome);
   }
 }
