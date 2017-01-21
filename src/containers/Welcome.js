@@ -1,14 +1,4 @@
 import React, { Component } from 'react';
-import {
-  AppRegistry,
-  Dimensions,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableHighlight,
-  View
-} from 'react-native';
 import { connect } from 'react-redux';
 
 import { UserLoginForm } from '../components/welcome';

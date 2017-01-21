@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableHighlight,
   View
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -27,9 +22,9 @@ export class _SheetListView extends Component {
     var toRender = [];
     this.props.loading ? toRender.push(<Loading key={2}/>) : toRender.push(<SheetList goToSheet={this.goToSheet} {...this.props} key={1}/>)
     return(
-        <View>
-          {toRender}
-        </View>
+      <View>
+        {toRender}
+      </View>
     )
   }
 }
