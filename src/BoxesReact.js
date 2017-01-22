@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {
   View
 } from 'react-native';
-import { Welcome, MainNav } from './containers';
+import { Welcome } from './containers';
+import { MainTabNav } from './navigators';
 import { Provider } from 'react-redux';
 import { store } from './store';
 
@@ -27,6 +28,6 @@ export class BoxesReact extends Component {
 
   render(){
     const loggedIn = this.state.loggedIn;
-    return loggedIn ? this.renderApp(MainNav) : this.renderApp(Welcome);
+    return loggedIn ? this.renderApp(MainTabNav) : this.renderApp(Welcome);
   }
 }

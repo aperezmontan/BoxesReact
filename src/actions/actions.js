@@ -16,6 +16,10 @@ export const fetchSheets = () => (
   )
 )
 
+export const viewSheet = () => ({
+  type: types.VIEW_SHEET,
+  payload: ""
+})
 // export const fetchSheets = () => (
 //   dispatch => (
 //     Api.get('sheets')

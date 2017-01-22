@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import {
-  View
+  View,
+  StyleSheet
 } from 'react-native';
 import { connect } from 'react-redux';
-import { fetchSheets } from '../actions/actions'
+import { fetchSheets, viewSheet } from '../actions/actions'
 
-import { SheetList, Loading } from '../components/sheet-list-view'
+import { SheetList, Loading } from '../components/sheets-view'
 
 export class _SheetListView extends Component {
   constructor() {
@@ -15,23 +16,36 @@ export class _SheetListView extends Component {
     this.props.fetchSheets();
   }
   goToSheet(sheet){
-    console.log("I'm going to ", this.props.sheets);
+    this.navigator.push({
+      title: sheet.name,
+      rightText: 'ALERT!',
+    });
   }
   render() {
     const loggedIn = this.props.loggedIn;
     var toRender = [];
     this.props.loading ? toRender.push(<Loading key={2}/>) : toRender.push(<SheetList goToSheet={this.goToSheet} {...this.props} key={1}/>)
     return(
-      <View>
+      <View style={styles.container}>
         {toRender}
       </View>
     )
   }
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F5FCFF'
+  }
+})
+
 const mapActionsToProps = (dispatch) => ({
   fetchSheets() {
     dispatch(fetchSheets())
+  },
+  viewSheet(){
+    dispatch(viewSheet())
   }
 })
 
