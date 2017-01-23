@@ -128,7 +128,7 @@ var BoxView = React.createClass({
     alert("YO FROM RIGHT BUTTON")
   },
   selectBox(away_team_id, home_team_id){
-    // console.log(away_team_id, home_team_id)
+    console.log(away_team_id, home_team_id)
   },
   render(){
     color = this.props.boxColor;

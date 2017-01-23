@@ -16,16 +16,20 @@ export const fetchSheets = () => (
   )
 )
 
+export const fetchGames = () => (
+  asyncActionCreator(
+    types.FETCH_GAMES,
+    types.FETCH_GAMES_COMPLETE,
+    () => Api.get('games')
+  )
+)
+
 export const viewSheet = () => ({
   type: types.VIEW_SHEET,
   payload: ""
 })
-// export const fetchSheets = () => (
-//   dispatch => (
-//     Api.get('sheets')
-//     .then((sheets) => dispatch({
-//       type: types.FETCH_SHEETS,
-//       payload: sheets
-//     }))
-//   )
-// )
+
+export const newSheetForm = (game) => ({
+  type: types.NEW_SHEET,
+  payload: game
+})

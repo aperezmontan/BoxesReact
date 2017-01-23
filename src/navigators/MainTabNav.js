@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TabView from 'react-native-scrollable-tab-view'
 import { SheetListView, SheetNewView, AccountView } from '../containers';
-import { SheetsNav } from '../navigators';
+import { SheetsNav, NewSheetNav } from '../navigators';
 
 export class MainTabNav extends Component {
   constructor() {
@@ -12,7 +12,7 @@ export class MainTabNav extends Component {
     return(
       <TabView tabBarTextStyle={{fontFamily: 'Montserrat'}} tabBarPosition="overlayBottom">
         <SheetsNav tabLabel="Sheet List" />
-        <SheetNewView tabLabel="+" />
+        <NewSheetNav tabLabel="+" />
         <AccountView tabLabel="Account Info" />
       </TabView>
     )

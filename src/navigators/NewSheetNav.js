@@ -11,10 +11,10 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 
-import { Loading, SheetList, Sheet } from '../components/sheets-view'
-import { SheetListView } from '../containers'
+import { SheetForm } from '../components/sheet-new-view'
+import { SheetNewView, SheetView, SheetFormView } from '../containers'
 
-export class SheetsNav extends Component{
+export class NewSheetNav extends Component{
   configureScene(route, routeStack){
     return Navigator.SceneConfigs.FloatFromRight
   }
@@ -22,10 +22,12 @@ export class SheetsNav extends Component{
   renderScene(route, navigator){
     console.log(route.title);
     switch(route.title){
-      case 'listSheets':
-        return <SheetListView navigator={navigator} route={route} {...route.passProps} {...this.props}/>;
+      case 'listGames':
+        return <SheetNewView navigator={navigator} route={route} {...route.passProps} {...this.props}/>;
+      case 'createSheet':
+        return <SheetFormView navigator={navigator} route={route} {...route.passProps} {...this.props}/>;
       default:
-        return <Sheet navigator={navigator} route={route} {...route.passProps} />;
+        return <SheetView navigator={navigator} route={route} {...route.passProps} />;
     }
   }
   border(color){
@@ -46,14 +48,14 @@ export class SheetsNav extends Component{
     return (
       <Navigator
         configureScene={ this.configureScene }
-        initialRoute={{ title: 'listSheets'}}
+        initialRoute={{ title: 'listGames'}}
         renderScene={ this.renderScene }
         navigationBar={
           <Navigator.NavigationBar
             routeMapper={{
               LeftButton: (route, navigator, index, navState) =>
                 {
-                  if (route.title === 'listSheets') {
+                  if (route.title === 'listGames') {
                     return null;
                   } else {
                     return (
@@ -66,24 +68,12 @@ export class SheetsNav extends Component{
               // THIS IS WHERE YOU WOULD CONFIGURE THE RIGHT BUTTON IN THE NAV BAR
               RightButton: (route, navigator, index, navState) =>
                 {
-                  if (route.title === 'createSheet') {
-                    return (
-                      <TouchableHighlight onPress={() => this.handleCreateSheet}>
-                        <Text style={[styles.navBarTitle, {fontSize: navBarTitle}, this.border('white')]}>Done</Text>
-                      </TouchableHighlight>
-                    );
-                  } else {
-                    return null;
-                  }
+                  return null;
                 },
               //   { return (<Text style={{fontFamily: 'Futura-CondensedExtraBold'}}>Done</Text>); },
               Title: (route, navigator, index, navState) =>
                 {
-                  if (route.title === 'listSheets') {
-                    return (<Text style={[styles.navBarTitle, styles.navBarText, {fontSize: navBarTitle}]}>BOXED IN</Text>);
-                  } else {
-                    return (<Text style={[styles.navBarSheetTitle, {fontSize: navBarSheetTitle}, this.border('white')]}>{route.title}</Text>);
-                  }
+                  return (<Text style={[styles.navBarTitle, styles.navBarText, {fontSize: navBarTitle}]}>Create Sheet</Text>);
                 }
             }}
             style={{backgroundColor: '#3c3c3c', borderBottomWidth: .5, borderBottomColor: 'black'}}

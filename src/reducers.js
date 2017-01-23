@@ -2,17 +2,28 @@ import * as types from './actions/types';
 
 const DEFAULT_STATE = {
   isLoading: false,
+  loggedIn: false,
+  loginInfo: {
+    username: '',
+    password: ''
+  },
+  games:
+    [
+      {
+        home_team: "New York Giants",
+        away_team: "Philadelphia Eagles",
+      },
+      {
+        home_team: "Cleveland Browns",
+        away_team: "Dallas Cowboys",
+      },
+    ],
   sheets:
     [{
       name: "",
       away_team: "",
       home_team: ""
     }],
-  loggedIn: false,
-  loginInfo: {
-    username: '',
-    password: ''
-  },
 }
 
 import { combineReducers } from 'redux';
@@ -49,6 +60,18 @@ const sheets = (state = DEFAULT_STATE.sheets, action) => {
   }
 };
 
+const games = (state = DEFAULT_STATE.games, action) => {
+  switch(action.type){
+    case types.FETCH_GAMES_COMPLETE:
+      return action.payload.games
+    case types.NEW_SHEET:
+      // Returning array so that the return from games is consistent.  However, in this case the array will always have length 1
+      return [action.payload]
+    default:
+      return state;
+  }
+};
+
 const boxes = (state = DEFAULT_STATE, action) => {
   return state;
   // switch(action.type){
@@ -76,4 +99,4 @@ const users = (state = DEFAULT_STATE, action) => {
   }
 }
 
-export const reducer = combineReducers({ sheets, boxes, users, loading })
+export const reducer = combineReducers({ sheets, boxes, users, loading, games })

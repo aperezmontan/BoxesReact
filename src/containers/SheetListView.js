@@ -6,7 +6,8 @@ import {
 import { connect } from 'react-redux';
 import { fetchSheets, viewSheet } from '../actions/actions'
 
-import { SheetList, Loading } from '../components/sheets-view'
+import { SheetList } from '../components/sheets-view'
+import { Loading } from '../components/common'
 
 export class _SheetListView extends Component {
   constructor() {
