@@ -50,7 +50,6 @@ export const _Sheet = React.createClass({
   },
   // TODO: See if there's a better way to handle the onChange than creating a different function for each
   handleChange(attribute, text){
-    console.log(attribute, text);
     const sheet = this.state.newSheet;
     sheet[attribute] = text;
     this.setState(sheet);
@@ -65,10 +64,10 @@ export const _Sheet = React.createClass({
     var sheet_rows = [];
 
 
-    console.log(this.state.sheets);
-    console.log(route.title);
-    console.log(this.state.response);
-    console.log("Game", game);
+    // console.log(this.state.sheets);
+    // console.log(route.title);
+    // console.log(this.state.response);
+    // console.log("Game", game);
     if (route.title === 'createSheet'){
       return (
         <SheetForm
@@ -90,7 +89,7 @@ export const _Sheet = React.createClass({
       );
     } else {
       var sheet = this.state.sheets[0]
-      console.log("sheet: ",sheet);
+      // console.log("sheet: ",sheet);
       return (
         <View style={[styles.container, this.border('black')]}>
           <SheetView sheet={sheet}/>
@@ -204,7 +203,7 @@ var SheetView = React.createClass({
   },
   render(){
     var sheet = this.props.sheet;
-  console.log("props in Sheetview: ", sheet)
+  // console.log("props in Sheetview: ", sheet)
     // var away_team = this.props.sheet.away_team;
     // var home_team = this.props.home_team;
     // console.log({this.props.sheet.home_team})
@@ -261,43 +260,6 @@ var SheetView = React.createClass({
         {sheetRows}
       </ScrollView>
       </View>
-    )
-  }
-})
-
-var SheetListView = React.createClass({
-  onPress() {
-    alert("YO FROM RIGHT BUTTON")
-  },
-  goToSheet(sheet){
-    this.props.navigator.push({
-      title: sheet.name,
-      component: Sheet,
-      sheet: sheet, //this allows me to call sheet[0] because there's only one once it's been selected
-      onPress: this.onPress,
-      rightText: 'ALERT!',
-      api:{
-        route: 'sheets',
-        params: null,
-        body: sheet.id,
-      },
-    });
-  },
-  render(){
-    var away_team = this.props.sheet.away_team
-    var home_team = this.props.sheet.home_team
-
-    return(
-      <TouchableHighlight onPress={() => this.goToSheet(this.props.sheet)}>
-        <View style={styles.container}>
-          <Text style={styles.game_title}>
-            {this.props.sheet.name}
-          </Text>
-          <Text style={styles.games}>
-            Game: {away_team} at {home_team}
-          </Text>
-        </View>
-      </TouchableHighlight>
     )
   }
 })
