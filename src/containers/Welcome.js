@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
+import {
+  View,
+  StyleSheet
+} from 'react-native';
 import { connect } from 'react-redux';
+import { fetchUser } from '../actions/actions'
 
-import { UserLoginForm } from '../components/welcome';
+import { Loading } from '../components/common'
+import { UserLoginForm } from '../components/welcome'
 
 export class _Welcome extends Component {
   constructor() {
     super();
     this.state = {
       loginInfo: {
-        username: '',
+        email: '',
         password: ''
       },
     };
@@ -19,31 +25,35 @@ export class _Welcome extends Component {
     this.setState(loginInfo);
   }
   handleLogin = (loginInfo) => {
-    this.props.login();
     this.props.fetchUser(loginInfo);
-
   }
   handleNewUser(){
     console.log("New User Button pressed");
   }
   render() {
+    var toRender = [];
+    this.props.loading ? toRender.push(<Loading key={1}/>) : toRender.push(<UserLoginForm key={2} handleChange={this.handleChange} handleLogin={this.handleLogin} handleNewUser={this.handleNewUser} {...this.props} />)
     return(
-      <UserLoginForm
-        handleChange={this.handleChange}
-        handleLogin={this.handleLogin}
-        handleNewUser={this.handleNewUser}
-        {...this.props}
-      />
+      <View style={styles.container}>
+        {toRender}
+      </View>
     )
   }
 }
 
-const mapActionsToProps = (dispatch) => ({
-  fetchUser(loginInfo) {
-    dispatch({type: 'FETCH_USER', payload: loginInfo})
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F5FCFF'
   }
 })
 
-const mapStateToProps = (state) => ({ loginInfo: state.users.loginInfo })
+const mapActionsToProps = (dispatch) => ({
+  fetchUser(loginInfo) {
+    dispatch(fetchUser(loginInfo))
+  }
+})
+
+const mapStateToProps = (state) => ({ auth: state.auth, loading: state.loading, loginInfo: state.loginInfo })
 
 export const Welcome = connect(mapStateToProps, mapActionsToProps)(_Welcome)

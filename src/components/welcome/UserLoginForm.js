@@ -16,9 +16,9 @@ export const UserLoginForm = (props) => (
       <Text style={styles.title}>BOXED IN</Text>
       <TextInput
         style={styles.sheetInput}
-        onChangeText={(text) => props.handleChange('username', text)}
-        placeholder='username'
-        value={props.loginInfo.username}
+        onChangeText={(text) => props.handleChange('email', text)}
+        placeholder='email'
+        value={props.loginInfo.email}
       />
       <TextInput
         style={styles.sheetInput}

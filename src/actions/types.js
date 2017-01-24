@@ -8,8 +8,8 @@ export const FETCH_GAMES_COMPLETE = 'FETCH_GAMES_COMPLETE';
   // Sheets
 export const FETCH_SHEETS = 'FETCH_SHEETS';
 export const FETCH_SHEETS_COMPLETE = 'FETCH_SHEETS_COMPLETE';
-export const VIEW_SHEET = 'VIEW_SHEET';
 export const NEW_SHEET = 'NEW_SHEET';
+export const VIEW_SHEET = 'VIEW_SHEET';
   // Users
 export const CREATE_USER = 'CREATE_USER';
 export const CREATE_USER_COMPLETE = 'CREATE_USER_COMPLETE';

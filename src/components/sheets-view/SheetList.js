@@ -8,16 +8,22 @@ import {
 } from 'react-native';
 
 export class SheetList extends Component {
+  border(color){
+    return {
+      borderBottomColor: color,
+      borderBottomWidth: 1,
+    }
+  }
   render(){
     return(
-      <View style={styles.container}>
-        <TouchableHighlight onPress={() => this.props.goToSheet(this.props.sheets[0])}>
+      <View style={[styles.container, this.border('black')]}>
+        <TouchableHighlight onPress={() => this.props.goToSheet(this.props.sheet)}>
           <View style={styles.container}>
             <Text style={styles.game_title}>
-              Name: {this.props.sheets[0].name}
+              Name: {this.props.sheet.name}
             </Text>
             <Text style={styles.games}>
-              Game: {this.props.sheets[0].away_team} vs {this.props.sheets[0].home_team}
+              Game: {this.props.sheet.away_team} vs {this.props.sheet.home_team}
             </Text>
           </View>
         </TouchableHighlight>
@@ -28,9 +34,6 @@ export class SheetList extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
   game_title: {
@@ -44,6 +47,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
     fontFamily: 'Montserrat',
-    padding: 5,
+    paddingBottom: 10,
   }
 });

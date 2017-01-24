@@ -2,32 +2,26 @@ import React, { Component } from 'react';
 import {
   View
 } from 'react-native';
+import { connect } from 'react-redux';
 import { Welcome } from './containers';
 import { MainTabNav } from './navigators';
-import { Provider } from 'react-redux';
-import { store } from './store';
 
-export class BoxesReact extends Component {
+export class _BoxesReact extends Component {
   constructor() {
     super();
-    this.state = {
-      loggedIn: false,
-    };
-  }
-  login = () => {
-    this.setState({ loggedIn: true });
   }
 
   renderApp(ComponentToRender) {
     return(
-      <Provider store={store}>
-        <ComponentToRender login={this.login} />
-      </Provider>
+      <ComponentToRender login={this.login} />
     );
   }
 
   render(){
-    const loggedIn = this.state.loggedIn;
-    return loggedIn ? this.renderApp(MainTabNav) : this.renderApp(Welcome);
+    return this.props.auth ? this.renderApp(MainTabNav) : this.renderApp(Welcome);
   }
 }
+
+const mapStateToProps = (state) => ({ auth: state.auth })
+
+export const BoxesReact = connect(mapStateToProps, null)(_BoxesReact)

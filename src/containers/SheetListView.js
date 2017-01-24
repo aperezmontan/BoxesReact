@@ -25,7 +25,13 @@ export class _SheetListView extends Component {
   render() {
     const loggedIn = this.props.loggedIn;
     var toRender = [];
-    this.props.loading ? toRender.push(<Loading key={2}/>) : toRender.push(<SheetList goToSheet={this.goToSheet} {...this.props} key={1}/>)
+    var sheetRows = [];
+    if(this.props.sheets.length > 0){
+      this.props.sheets.forEach(function(sheet){
+        sheetRows.push(<SheetList sheet={sheet} key={sheet.id} goToSheet={this.goToSheet} {...this.props} />);
+      }.bind(this));
+    }
+    this.props.loading ? toRender.push(<Loading key={1}/>) : toRender.push(sheetRows)
     return(
       <View style={styles.container}>
         {toRender}
@@ -37,7 +43,8 @@ export class _SheetListView extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5FCFF'
+    backgroundColor: '#F5FCFF',
+    paddingTop: 60,
   }
 })
 
